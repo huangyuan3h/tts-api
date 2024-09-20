@@ -37,10 +37,3 @@ functions:
       - httpApi:
           path: /generate
           method: post
-
-resources:
-  Resources:
-    S3Bucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: production-it-t-tts

@@ -1,2 +1,3 @@
 boto3
 edge_tts
+async_timeout
