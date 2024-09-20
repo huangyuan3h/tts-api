@@ -1,0 +1,46 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: itntea
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: it-t
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: tts-api
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+    slim: true
+
+plugins:
+  - serverless-python-requirements
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+
+  # 配置S3 Bucket
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource:
+        - arn:aws:s3:::production-it-t-tts/*
+
+  environment:
+    BUCKET_NAME: production-it-t-tts
+
+functions:
+  generateSpeech:
+    handler: handler.handler
+    events:
+      - httpApi:
+          path: /generate
+          method: post
+
+resources:
+  Resources:
+    S3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: production-it-t-tts
