@@ -11,7 +11,6 @@ bucket_name = os.environ['BUCKET_NAME']
 
 
 async def generate_speech(event, context):
-
     body = json.loads(event['body'])
     text = body.get('text')
     voice = body.get('voice', 'en-CA-LiamNeural')
@@ -36,6 +35,10 @@ async def generate_speech(event, context):
 
     response = {
         "statusCode": 200,
+        "headers": {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': True,
+        },
         "body": json.dumps({"url": url})
     }
 

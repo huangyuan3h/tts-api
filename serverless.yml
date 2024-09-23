@@ -15,6 +15,13 @@ plugins:
   - serverless-offline
 
 provider:
+  httpApi:
+    cors:
+      allowedOrigins:
+        - http://localhost:3000
+        - https://www.it-t.xyz
+        - https://north-path.it-t.xyz
+      allowCredentials: true
   name: aws
   runtime: python3.9
   region: us-east-1
